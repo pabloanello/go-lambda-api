@@ -1,4 +1,12 @@
 node_modules
+dist/
+coverage/
+bin/
+bootstrap
+local-main
+*.out
+coverage.*
+handlers/coverage.out
 dist
 coverage
 
