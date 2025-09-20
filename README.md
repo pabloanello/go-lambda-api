@@ -1,0 +1,1 @@
+![Build Status](https://github.com/pabloanello/go-lambda-api/actions/workflows/go.yml/badge.svg)
