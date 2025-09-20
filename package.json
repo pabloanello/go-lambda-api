@@ -1,0 +1,25 @@
+{
+    "name": "go-lambda-api",
+    "version": "1.0.0",
+    "description": "Go Lambda API with Serverless Framework",
+    "devDependencies": {
+        "serverless": "^3.37.0",
+        "serverless-go-plugin": "^2.0.0",
+        "serverless-offline": "^13.3.3"
+    },
+    "scripts": {
+        "deploy": "serverless deploy",
+        "deploy:prod": "serverless deploy --stage prod",
+        "remove": "serverless remove",
+        "offline": "LOCAL_SERVER=true go run cmd/local/main.go",
+        "logs": "serverless logs -f api -t",
+        "info": "serverless info",
+        "test": "go test ./...",
+        "coverage": "./scripts/generate_coverage.sh",
+        "serve:local": "LOCAL_SERVER=true go run cmd/local/main.go",
+        "build:local": "GOOS=linux GOARCH=amd64 go build -o bin/bootstrap cmd/lambda/lambda-main.go",
+        "lint": "\"$(go env GOPATH)\"/bin/golangci-lint run ./..."
+    },
+    "author": "Pablo Anello <pabloanello@gmail.com>",
+    "license": "MIT"
+}

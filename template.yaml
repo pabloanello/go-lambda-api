@@ -1,0 +1,44 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: Go Lambda API
+
+Resources:
+  ApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      Handler: bootstrap
+      Runtime: provided.al2
+      CodeUri: .
+      MemorySize: 256
+      Timeout: 30
+      Events:
+        Health:
+          Type: Api
+          Properties:
+            Path: /health
+            Method: get
+        UsersGet:
+          Type: Api
+          Properties:
+            Path: /users
+            Method: get
+        UsersPost:
+          Type: Api
+          Properties:
+            Path: /users
+            Method: post
+        UsersGetById:
+          Type: Api
+          Properties:
+            Path: /users/{id}
+            Method: get
+        UsersPutById:
+          Type: Api
+          Properties:
+            Path: /users/{id}
+            Method: put
+        UsersDeleteById:
+          Type: Api
+          Properties:
+            Path: /users/{id}
+            Method: delete

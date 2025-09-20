@@ -1,0 +1,61 @@
+service: go-lambda-api
+
+provider:
+  name: aws
+  runtime: go1.x
+  region: us-east-1
+  memorySize: 256
+  timeout: 30
+  stage: dev
+
+package:
+  individually: true
+  patterns:
+    - '!./**'
+    - './bootstrap'
+
+functions:
+  api:
+    handler: bootstrap
+    events:
+      - http:
+          path: /health
+          method: GET
+          cors: true
+      - http:
+          path: /users
+          method: GET
+          cors: true
+      - http:
+          path: /users
+          method: POST
+          cors: true
+      - http:
+          path: /users/{id}
+          method: GET
+          cors: true
+      - http:
+          path: /users/{id}
+          method: PUT
+          cors: true
+      - http:
+          path: /users/{id}
+          method: DELETE
+          cors: true
+
+plugins:
+  - serverless-offline
+
+custom:
+  serverless-offline:
+    httpPort: 3000
+    lambdaPort: 3002
+    noPrependStageInUrl: true
+    noAuth: true
+    # Configuración CORRECTA para Go
+    useWorkerThreads: false
+    allowCache: false
+    # Usar proceso hijo en lugar de worker threads
+    useChildProcesses: true
+    # Deshabilitar la validación de runtime
+    ignoreRuntime: true

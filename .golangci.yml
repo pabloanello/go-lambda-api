@@ -1,0 +1,138 @@
+run:
+  timeout: 5m
+  issues-exit-code: 1
+  tests: false
+
+linters-settings:
+  revive:
+    min-confidence: 0.8
+    # All of the following rules are enabled by default.
+    # You can also use "enable-all: true" and then disable rules.
+    # For more options: https://revive.run/docs/configuration/
+    rules:
+      - name: argument-limit
+        arguments: [5] # Increased limit for Router and RunLocalServerInternal
+      - name: cognitive-complexity
+        arguments: [20] # Increased limit for Router due to its nature as a central dispatcher
+      - name: cyclomatic
+        arguments: [20] # Increased limit for Router due to its nature as a central dispatcher
+      - name: error-return
+      - name: error-strings
+      - name: exported
+      - name: if-return
+      - name: indent-error-flow
+      - name: package-comments
+      - name: time-equal
+      - name: unexported-return
+      - name: var-declaration
+      - name: waitgroup-by-value
+  depguard:
+    rules:
+      Main:
+        allow:
+          - "github.com/aws/aws-lambda-go/events"
+          - "github.com/aws/aws-lambda-go/lambda"
+          - "github.com/google/uuid"
+          - "go-lambda-api/handlers"
+          - "go-lambda-api/models"
+          - "go-lambda-api/utils"
+          - "go-lambda-api/internal/app" # Added internal/app to allowed list
+          - "go-lambda-api/lambdarouter" # Added lambdarouter to allowed list
+          - "context"
+          - "errors"
+          - "fmt"
+          - "io"
+          - "log"
+          - "net/http"
+          - "os"
+          - "os/signal"
+          - "syscall"
+          - "time"
+          - "encoding/json"
+          - "sync"
+          - "strconv"
+  cyclop:
+    max-complexity: 20 # Increased limit for cyclop
+
+linters:
+  disable-all: true
+  enable:
+    - errcheck
+    - gosimple
+    - govet
+    - ineffassign
+    - staticcheck
+    - unused
+    - revive
+    - gofmt
+    - goimports
+    - misspell
+    - unparam
+    - rowserrcheck
+    - whitespace
+    # - copyloopvar # Disabled due to Go version < 1.22
+    - bodyclose
+    - asciicheck
+    - stylecheck
+    - prealloc
+    - unconvert
+    - durationcheck
+    - goconst
+    - gocritic
+    - gosec
+    - nilerr
+    - nestif
+    - noctx
+    - nolintlint
+    - funlen
+    - nakedret
+    - decorder
+    - exhaustruct
+    - godox
+    - lll
+    - makezero
+    - contextcheck
+    - cyclop
+    - depguard
+    - dupl
+    - exhaustive
+    - forcetypeassert
+    - gocheckcompilerdirectives
+    - gochecknoglobals
+    - gocognit
+    - godot
+    - goheader
+    - gomoddirectives
+    - gomodguard
+    - goprintffuncname
+    - gofumpt
+    - importas
+    - inamedparam
+    # - intrange # Disabled due to Go version < 1.22
+    - ireturn
+    - loggercheck
+    - maintidx
+    - mirror
+    - musttag
+    - nilnil
+    - nlreturn
+    - nonamedreturns
+    - paralleltest
+    - perfsprint
+    - predeclared
+    - promlinter
+    - protogetter
+    - reassign
+    - recvcheck
+    - sloglint
+    - spancheck
+    - sqlclosecheck
+    - tagalign
+    - testableexamples
+    - testifylint
+    - testpackage
+    - thelper
+    - usestdlibvars
+    - usetesting
+    - varnamelen
+    - exhaustruct # Re-enabled after fixing compatibility issues
